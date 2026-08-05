@@ -1,0 +1,57 @@
+"""Central configuration: endpoints, grid parameters, thresholds."""
+
+USER_AGENT = "GoldFinder/1.0 (github.com/W00FEY/GoldFinder; hobby prospecting map)"
+
+SCHEMA_VERSION = 1
+
+# Australian mainland + Tasmania bounding box (OZMIN contains a few overseas
+# records that must be filtered out).
+AUS_BBOX = (112.0, -44.0, 154.5, -9.0)  # lon_min, lat_min, lon_max, lat_max
+
+# --- OZMIN (Geoscience Australia) ---
+OZMIN_WFS = "https://services.ga.gov.au/gis/earthresource/wfs"
+OZMIN_TYPENAME = "erl:MineralOccurrenceView"
+OZMIN_PAGE_SIZE = 2000
+
+ALLUVIAL_RE = r"placer|alluvi|deep lead|eluvial"
+
+# occ_type -> heatmap weight
+OCC_WEIGHTS = {
+    "mine": 1.0,
+    "deposit": 1.0,
+    "occurrence": 0.6,
+    "prospect": 0.3,
+    "project": 0.3,
+}
+DEFAULT_OCC_WEIGHT = 0.5
+
+# --- Rainfall grid ---
+CELL_DEG = 0.25          # grid cell size in degrees
+RAIN_DAYS = 14           # history window
+OPEN_METEO_ARCHIVE = "https://archive-api.open-meteo.com/v1/archive"
+OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
+NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
+RAIN_BATCH = 100         # coordinates per Open-Meteo request
+RAIN_BATCH_PAUSE_S = 10  # Open-Meteo counts each location as one call
+                         # (~600/min free limit) — pace the batches
+
+# --- Gold shift ---
+SHIFT_R7_FULL_MM = 60.0     # 7-day rain that saturates the rain factor
+SHIFT_RMAX_FULL_MM = 30.0   # 1-day rain that saturates the flash factor
+SHIFT_MIN_SCORE = 15.0
+SHIFT_ALPHA = 0.7           # density exponent
+
+# --- New-report tracking ---
+NEW_REPORT_MAX_AGE_DAYS = 90
+NEW_REPORT_NOTIFY_DAYS = 14
+
+# --- Community ---
+REDDIT_URL = (
+    "https://www.reddit.com/r/Goldpanning+GoldProspecting+metaldetecting/new.json?limit=100"
+)
+COMMUNITY_KEYWORDS = r"found|nugget|detect|specimen|colour|color|pan|crevic|sluic"
+COMMUNITY_AU_HINTS = (
+    r"australia|victoria|ballarat|bendigo|golden triangle|wedderburn|dunolly|"
+    r"kalgoorlie|goldfields|\bwa\b|\bnsw\b|\bvic\b|\bqld\b|queensland|tasmania|"
+    r"\bnt\b|pilbara|clermont|gympie|hill end|ophir|araluen|leonora|laverton"
+)
