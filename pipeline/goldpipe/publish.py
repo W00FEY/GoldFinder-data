@@ -15,6 +15,13 @@ def _now_iso() -> str:
 
 
 def geojson(features: list[dict]) -> dict:
+    # Strip null-valued properties: MapLibre's Feature.get*Property() throws
+    # UnsupportedOperationException on present-but-JsonNull values (crashed
+    # the app on tap). Missing keys read back as null safely.
+    for f in features:
+        props = f.get("properties")
+        if props:
+            f["properties"] = {k: v for k, v in props.items() if v is not None}
     return {
         "type": "FeatureCollection",
         "goldfinder": {"schema_version": config.SCHEMA_VERSION},
