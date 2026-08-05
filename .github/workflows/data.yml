@@ -52,6 +52,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # First run: checkout of the missing data branch leaves an unborn
+          # default branch; make sure the commit lands on 'data'.
+          git checkout -B data 2>/dev/null || git symbolic-ref HEAD refs/heads/data
           git add -A
           if git diff --cached --quiet; then
             echo "No data changes"
