@@ -58,6 +58,20 @@ YOUTUBE_CHANNELS: dict[str, str] = {
     "NQE Overland": "UCN470oZHVqf3BYmqK-FzbqQ",
 }
 
+# Each channel's usual stomping grounds: fallback approximate location when a
+# video title doesn't name a place. (lon, lat, region label)
+YOUTUBE_CHANNEL_HOMES: dict[str, tuple[float, float, str]] = {
+    "GoldenGully": (143.80, -36.70, "Golden Triangle VIC"),
+    "Goldfields Goose": (121.47, -30.75, "WA Goldfields"),
+    "Vo-Gus Prospecting": (144.28, -36.76, "Central VIC"),
+    "Prospector Nic": (143.85, -37.56, "Ballarat VIC"),
+    "PioneerPauly": (144.22, -37.06, "Central VIC"),
+    "Tassie Boys Prospecting": (146.80, -41.50, "Tasmania"),
+    "Australian Gold Detecting": (143.80, -36.70, "Golden Triangle VIC"),
+    "Gold Rat Prospecting": (152.67, -26.19, "SE Queensland"),
+    "NQE Overland": (146.26, -20.08, "North QLD"),
+}
+
 # --- Community ---
 REDDIT_URL = (
     "https://www.reddit.com/r/Goldpanning+GoldProspecting+metaldetecting/new.json?limit=100"

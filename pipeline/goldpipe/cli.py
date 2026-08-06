@@ -16,6 +16,7 @@ from .fetch_camps import fetch_camp_sites
 from .fetch_community import fetch_community_reports
 from .fetch_news import fetch_news_reports
 from .fetch_towers import fetch_tower_sites
+from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_ozmin import fetch_gold_occurrences
 from .fetch_rainfall import fetch_rainfall
@@ -60,7 +61,17 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
         community = (reddit or []) + (news or []) + (youtube or [])
     if community is not None:
         community, state = diff_community(community, state, today)
-        print(f"[community] {len(community)} reports")
+        # Geocode titles against the goldfield gazetteer so finds that name a
+        # locality show up as map markers, not just list entries.
+        located = 0
+        for r in community:
+            if r.get("lat") is None:
+                hit = locate(r.get("title", ""))
+                if hit:
+                    r["lon"], r["lat"], r["place"] = round(hit[0], 3), round(hit[1], 3), hit[2]
+                    r["approx"] = True
+                    located += 1
+        print(f"[community] {len(community)} reports ({located} geocoded)")
         now = datetime.now(timezone.utc).replace(microsecond=0)
         pub.section(
             "community_reports", "community_reports.json",
@@ -79,11 +90,12 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
                         "geometry": {"type": "Point", "coordinates": [r["lon"], r["lat"]]},
                         "properties": {
                             "id": r["id"],
-                            "source": "community",
+                            "source": r.get("source") or "community",
                             "title": r["title"],
-                            "detail": None,
+                            "detail": r.get("place"),
                             "first_seen": r["first_seen"],
                             "url": r["url"],
+                            "approx": r.get("approx", False),
                         },
                     }
                 )

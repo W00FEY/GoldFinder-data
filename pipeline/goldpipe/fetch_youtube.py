@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 
 from . import config
+from .gazetteer import locate
 from .http import SESSION
 
 _ATOM = "{http://www.w3.org/2005/Atom}"
@@ -48,6 +49,13 @@ def _fetch_channel(name: str, channel_id: str, cutoff: datetime) -> list[dict]:
             continue
         if published < cutoff:
             continue
+        # Title place-name wins; otherwise pin to the channel's usual region.
+        hit = locate(title)
+        if hit:
+            lon, lat, place = round(hit[0], 3), round(hit[1], 3), hit[2]
+        else:
+            home = config.YOUTUBE_CHANNEL_HOMES.get(name)
+            lon, lat, place = (home[0], home[1], home[2]) if home else (None, None, None)
         reports.append(
             {
                 "id": url,
@@ -56,8 +64,10 @@ def _fetch_channel(name: str, channel_id: str, cutoff: datetime) -> list[dict]:
                 "posted_at": published.astimezone(timezone.utc)
                 .replace(microsecond=0).isoformat().replace("+00:00", "Z"),
                 "url": url,
-                "lat": None,
-                "lon": None,
+                "lat": lat,
+                "lon": lon,
+                "place": place,
+                "approx": lat is not None,
             }
         )
     return reports
