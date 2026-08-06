@@ -21,6 +21,7 @@ from .fetch_rainfall import fetch_rainfall
 from .goldshift import compute_goldshift, rainfall_features
 from .grid import gold_grid
 from .land import build_land_sources
+from .waterways import build_track_sources, build_waterway_sources
 from .publish import Publisher, geojson
 from .tenements import build_tenement_sources
 
@@ -128,6 +129,14 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     ok = sum(1 for s in land["sources"].values() if s["status"] == "ok")
     print(f"[land] {ok}/{len(land['sources'])} land services healthy")
     pub.section("land_sources", "land_sources.json", land, len(land["sources"]))
+
+    # --- Waterway + track registries health check
+    water = build_waterway_sources()
+    pub.section("waterway_sources", "waterway_sources.json", water, len(water["sources"]))
+    tracks = build_track_sources()
+    pub.section("track_sources", "track_sources.json", tracks, len(tracks["sources"]))
+    print(f"[waterways] water={list(water['sources'].values())[0]['status']} "
+          f"tracks={list(tracks['sources'].values())[0]['status']}")
 
     manifest = pub.finish(new_reports, today)
     save_state(state_dir, state)
