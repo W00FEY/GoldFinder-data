@@ -38,6 +38,28 @@ WATER_REGISTRY: dict[str, dict] = {
 }
 
 TRACK_REGISTRY: dict[str, dict] = {
+    # Private-access roads: only Victoria publishes this flag openly
+    # (Vicmap Transport restrictions='4'). Rendered red in the app via the
+    # restricted=yes property. Other states: no open data — known gap.
+    "VIC_PRIVATE_ROADS": {
+        "name": "VIC Private Access Roads (Vicmap)",
+        "states": ["VIC"],
+        "query_templates": [
+            "https://services-ap1.arcgis.com/P744lA0wf4LlBZ84/ArcGIS/rest/services/Vicmap_Transport/FeatureServer/1/query"
+            "?where=restrictions%3D%274%27"
+            "&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326"
+            "&spatialRel=esriSpatialRelIntersects"
+            "&outFields=ezi_road_name_label,road_status&outSR=4326"
+            "&resultRecordCount=1000&maxAllowableOffset=0.0002&geometryPrecision=5"
+            "&f=geojson"
+        ],
+        "field_map": {
+            "name": ["ezi_road_name_label"],
+            "type": ["const:PRIVATE ROAD"],
+            "restricted": ["const:yes"],
+        },
+        "attribution": "© State of Victoria (Vicmap, CC BY 4.0)",
+    },
     "NATIONAL_ROADS": {
         "name": "Vehicle tracks & footpaths (Digital Atlas of Australia)",
         "states": _ALL_STATES,
@@ -63,6 +85,7 @@ TRACK_REGISTRY: dict[str, dict] = {
 _PROBE_BBOX = {
     "GA_HYDRO": (143.75, -37.7, 143.95, -37.5),        # Yarrowee River, Ballarat
     "NATIONAL_ROADS": (144.2, -37.5, 144.4, -37.35),   # Wombat State Forest tracks
+    "VIC_PRIVATE_ROADS": (143.7, -37.4, 144.0, -37.2), # Daylesford surrounds
 }
 
 

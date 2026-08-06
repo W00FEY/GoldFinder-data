@@ -15,6 +15,7 @@ from .diff import diff_community, diff_occurrences, load_state, save_state
 from .fetch_camps import fetch_camp_sites
 from .fetch_community import fetch_community_reports
 from .fetch_news import fetch_news_reports
+from .fetch_towers import fetch_tower_sites
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_ozmin import fetch_gold_occurrences
 from .fetch_rainfall import fetch_rainfall
@@ -117,6 +118,14 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
         pub.section("camp_sites", "camp_sites.geojson", geojson(camps), len(camps))
     else:
         pub.section("camp_sites", "camp_sites.geojson", None, None)
+
+    # --- Mobile tower sites (ACMA RRL, fail-soft; ~70MB download)
+    towers = fetch_tower_sites()
+    if towers is not None:
+        print(f"[towers] {len(towers)} mobile tower sites")
+        pub.section("towers", "towers.geojson", geojson(towers), len(towers))
+    else:
+        pub.section("towers", "towers.geojson", None, None)
 
     # --- Tenement registry health check
     sources = build_tenement_sources()
