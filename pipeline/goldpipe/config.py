@@ -45,6 +45,19 @@ SHIFT_ALPHA = 0.7           # density exponent
 NEW_REPORT_MAX_AGE_DAYS = 90
 NEW_REPORT_NOTIFY_DAYS = 14
 
+# --- YouTube: active Australian prospecting channels (feeds verified 2026-08) ---
+YOUTUBE_CHANNELS: dict[str, str] = {
+    "GoldenGully": "UC9t2RlHUshAARQNGe3tfk0A",
+    "Goldfields Goose": "UCI8fiJvIppySeXfrhskEyWQ",
+    "Vo-Gus Prospecting": "UCxOWMu3gx_EJO7J5Vm0ecPw",
+    "Prospector Nic": "UCZVigrxLbuXmTB1NL6YA0xQ",
+    "PioneerPauly": "UCeU8II9pvOcHXl7EGeXi8yQ",
+    "Tassie Boys Prospecting": "UCaFzHYMrIhVahBCfmc1AjNw",
+    "Australian Gold Detecting": "UCqAnfx9LJIBy7zfVXn-P8_A",
+    "Gold Rat Prospecting": "UCie0tDHPLPSRkD528DPkgwQ",
+    "NQE Overland": "UCN470oZHVqf3BYmqK-FzbqQ",
+}
+
 # --- Community ---
 REDDIT_URL = (
     "https://www.reddit.com/r/Goldpanning+GoldProspecting+metaldetecting/new.json?limit=100"
