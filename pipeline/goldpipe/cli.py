@@ -16,6 +16,7 @@ from .fetch_camps import fetch_camp_sites
 from .fetch_community import fetch_community_reports
 from .fetch_news import fetch_news_reports
 from .fetch_towers import fetch_tower_sites
+from .fossicking import build_fossicking_sources
 from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_ozmin import fetch_gold_occurrences
@@ -150,6 +151,13 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     ok = sum(1 for s in land["sources"].values() if s["status"] == "ok")
     print(f"[land] {ok}/{len(land['sources'])} land services healthy")
     pub.section("land_sources", "land_sources.json", land, len(land["sources"]))
+
+    # --- Fossicking (legal areas) registry health check
+    fossick = build_fossicking_sources()
+    ok = sum(1 for s in fossick["sources"].values() if s["status"] == "ok")
+    print(f"[fossicking] {ok}/{len(fossick['sources'])} services healthy")
+    pub.section("fossicking_sources", "fossicking_sources.json", fossick,
+                len(fossick["sources"]))
 
     # --- Waterway + track registries health check
     water = build_waterway_sources()
