@@ -25,7 +25,7 @@ LAND_REGISTRY: dict[str, dict] = {
             "https://gis.environment.gov.au/gispubmap/rest/services/ogc_services/CAPAD/FeatureServer/0/query"
             "?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326"
             "&spatialRel=esriSpatialRelIntersects&outFields=NAME,TYPE,STATE&outSR=4326"
-            "&resultRecordCount=1000&f=geojson"
+            "&resultRecordCount=500&maxAllowableOffset=0.0003&geometryPrecision=5&f=geojson"
         ],
         "field_map": {"name": ["NAME"], "type": ["TYPE"], "state": ["STATE"]},
         "attribution": "© Australian Government DCCEEW (CAPAD)",
@@ -37,7 +37,7 @@ LAND_REGISTRY: dict[str, dict] = {
             "https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.1.0"
             "&request=GetFeature&typeName=open-data-platform:plm25"
             "&outputFormat=application/json"
-            "&bbox={bbox_latlon},urn:ogc:def:crs:EPSG::4326&maxFeatures=500"
+            "&bbox={bbox_latlon},urn:ogc:def:crs:EPSG::4326&maxFeatures=300"
         ],
         "field_map": {
             "name": ["label", "name"],
@@ -53,7 +53,7 @@ LAND_REGISTRY: dict[str, dict] = {
             "https://services2.arcgis.com/iCBB4zKDwkw2iwDD/arcgis/rest/services/NSW_Dedicated_State_Forests/FeatureServer/0/query"
             "?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326"
             "&spatialRel=esriSpatialRelIntersects&outFields=SFName&outSR=4326"
-            "&resultRecordCount=1000&f=geojson"
+            "&resultRecordCount=500&maxAllowableOffset=0.0003&geometryPrecision=5&f=geojson"
         ],
         "field_map": {
             "name": ["SFName"],

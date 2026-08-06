@@ -16,10 +16,14 @@ from datetime import datetime, timezone
 from . import config
 from .http import SESSION
 
+# maxAllowableOffset simplifies polygons server-side (~33 m at 0.0003 deg) and
+# geometryPrecision trims coordinate decimals — without them a dense viewport
+# OOM-crashed the app on a 256 MB heap.
 _ARCGIS_SUFFIX = (
     "query?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope"
     "&inSR=4326&spatialRel=esriSpatialRelIntersects&outFields={fields}"
-    "&outSR=4326&resultRecordCount=1000&f=geojson"
+    "&outSR=4326&resultRecordCount=800&maxAllowableOffset=0.0003"
+    "&geometryPrecision=5&f=geojson"
 )
 
 
@@ -62,7 +66,7 @@ REGISTRY: dict[str, dict] = {
             "https://gs.geoscience.nsw.gov.au/geoserver/ows?service=WFS&version=2.0.0"
             "&request=GetFeature&typeNames=mt:MineralTenement"
             "&bbox={bbox_latlon},urn:ogc:def:crs:EPSG::4326"
-            "&count=1000&outputFormat=application/json"
+            "&count=400&outputFormat=application/json"
         ],
         "field_map": {
             "id": ["name"], "type": ["tenementType"], "status": ["status"],
@@ -75,7 +79,7 @@ REGISTRY: dict[str, dict] = {
         "query_templates": [
             "https://geology.data.vic.gov.au/nvcl/wfs?service=WFS&version=2.0.0"
             "&request=GetFeature&typeNames=mt:MineralTenement"
-            "&outputFormat=application/json&count=1000&bbox={bbox},EPSG:4326"
+            "&outputFormat=application/json&count=400&bbox={bbox},EPSG:4326"
         ],
         "field_map": {
             "id": ["name"], "type": ["tenementType"], "status": ["status"],
@@ -91,7 +95,7 @@ REGISTRY: dict[str, dict] = {
             "&typeName=mineral_tenements:mineral_and_or_opal_exploration_licence,"
             "mineral_tenements:mineral_leases,mineral_tenements:extractive_mineral_leases,"
             "mineral_tenements:retention_leases,mineral_tenements:mineral_claims"
-            "&outputFormat=application/json&maxFeatures=1000&bbox={bbox},EPSG:4326"
+            "&outputFormat=application/json&maxFeatures=400&bbox={bbox},EPSG:4326"
         ],
         "field_map": {
             "id": ["TENEMENT_LABEL"],
@@ -109,7 +113,7 @@ REGISTRY: dict[str, dict] = {
             "https://geology.data.nt.gov.au/geoserver/wfs?service=WFS&version=2.0.0"
             "&request=GetFeature&typeNames=mt:MineralTenement"
             "&bbox={bbox_latlon},urn:ogc:def:crs:EPSG::4326"
-            "&count=1000&outputFormat=application/json"
+            "&count=400&outputFormat=application/json"
         ],
         # NT publishes no grant/expiry dates in this service.
         "field_map": {
