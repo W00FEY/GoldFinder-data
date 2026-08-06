@@ -46,6 +46,11 @@ jobs:
       - name: Run pipeline
         working-directory: pipeline
         run: python -m goldpipe.cli all --out ../dataout/v1 --state ../dataout/state
+        env:
+          # Optional: register a free "script" app at reddit.com/prefs/apps
+          # and add these two repo secrets to enable official Reddit access.
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
 
       - name: Commit and push data branch
         working-directory: dataout

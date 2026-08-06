@@ -14,6 +14,7 @@ from . import config
 from .diff import diff_community, diff_occurrences, load_state, save_state
 from .fetch_camps import fetch_camp_sites
 from .fetch_community import fetch_community_reports
+from .fetch_news import fetch_news_reports
 from .fetch_ozmin import fetch_gold_occurrences
 from .fetch_rainfall import fetch_rainfall
 from .goldshift import compute_goldshift, rainfall_features
@@ -46,8 +47,12 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     else:
         pub.section("gold_occurrences", "gold_occurrences.geojson", None, None)
 
-    # --- Community (fail-soft)
-    community = fetch_community_reports()
+    # --- Community: reddit (official API when creds are set) + gold news RSS.
+    reddit = fetch_community_reports()
+    news = fetch_news_reports()
+    community = None
+    if reddit is not None or news is not None:
+        community = (reddit or []) + (news or [])
     if community is not None:
         community, state = diff_community(community, state, today)
         print(f"[community] {len(community)} reports")
