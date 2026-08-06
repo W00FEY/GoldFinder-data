@@ -12,11 +12,13 @@ from pathlib import Path
 
 from . import config
 from .diff import diff_community, diff_occurrences, load_state, save_state
+from .fetch_camps import fetch_camp_sites
 from .fetch_community import fetch_community_reports
 from .fetch_ozmin import fetch_gold_occurrences
 from .fetch_rainfall import fetch_rainfall
 from .goldshift import compute_goldshift, rainfall_features
 from .grid import gold_grid
+from .land import build_land_sources
 from .publish import Publisher, geojson
 from .tenements import build_tenement_sources
 
@@ -99,11 +101,25 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
         pub.section("rainfall", "rainfall_grid.geojson", None, None)
         pub.section("goldshift", "goldshift.geojson", None, None)
 
+    # --- Campgrounds (fail-soft; OSM data changes slowly so stale is fine)
+    camps = fetch_camp_sites()
+    if camps is not None:
+        print(f"[camps] {len(camps)} camp sites")
+        pub.section("camp_sites", "camp_sites.geojson", geojson(camps), len(camps))
+    else:
+        pub.section("camp_sites", "camp_sites.geojson", None, None)
+
     # --- Tenement registry health check
     sources = build_tenement_sources()
     ok = sum(1 for s in sources["sources"].values() if s["status"] == "ok")
     print(f"[tenements] {ok}/{len(sources['sources'])} state services healthy")
     pub.section("tenement_sources", "tenement_sources.json", sources, len(sources["sources"]))
+
+    # --- Public land (parks/forests) registry health check
+    land = build_land_sources()
+    ok = sum(1 for s in land["sources"].values() if s["status"] == "ok")
+    print(f"[land] {ok}/{len(land['sources'])} land services healthy")
+    pub.section("land_sources", "land_sources.json", land, len(land["sources"]))
 
     manifest = pub.finish(new_reports, today)
     save_state(state_dir, state)

@@ -15,7 +15,7 @@ OUT = Path(__file__).resolve().parent.parent / "out" / "v1"
 
 REQUIRED_SECTIONS = {
     "gold_occurrences", "new_reports", "rainfall", "goldshift",
-    "community_reports", "tenement_sources",
+    "community_reports", "tenement_sources", "camp_sites", "land_sources",
 }
 
 
@@ -38,6 +38,9 @@ def test_synthetic_publish_matches_contract(tmp_path):
     pub.section("community_reports", "community_reports.json",
                 {"schema_version": 1, "updated_at": "x", "reports": []}, 0)
     pub.section("tenement_sources", "tenement_sources.json",
+                {"schema_version": 1, "updated_at": "x", "sources": {}}, 0)
+    pub.section("camp_sites", "camp_sites.geojson", geojson([]), 0)
+    pub.section("land_sources", "land_sources.json",
                 {"schema_version": 1, "updated_at": "x", "sources": {}}, 0)
     manifest = pub.finish([], date(2026, 8, 5))
     _check_manifest(manifest)
