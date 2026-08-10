@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
+from . import config
+from .gazetteer import locate
 from .http import SESSION
 
 NEWS_RSS = (
@@ -20,9 +22,14 @@ _RELEVANT = re.compile(
 )
 _NOISE = re.compile(
     r"asx|share price|stock|dividend|takeover|merger|marketing licen|"
-    r"quarterly report|drill result",
+    r"quarterly report|drill result|"
+    # Clickbait/listicle patterns (were triggering user notifications).
+    r"largest .{0,20}ever|biggest .{0,20}ever|weighed as much|"
+    r"here'?s how much|of all time|in history|top \d+|"
+    r"most expensive|most valuable|you won'?t believe",
     re.I,
 )
+_AU = re.compile(config.COMMUNITY_AU_HINTS, re.I)
 MAX_AGE_DAYS = 90
 
 
@@ -43,6 +50,10 @@ def fetch_news_reports() -> list[dict] | None:
         if not title or not link:
             continue
         if not _RELEVANT.search(title) or _NOISE.search(title):
+            continue
+        # Must be verifiably Australian: a goldfield locality or an AU term
+        # in the title (global listicles were polluting the feed).
+        if not (locate(title) or _AU.search(title)):
             continue
         try:
             posted = parsedate_to_datetime(item.findtext("pubDate") or "")

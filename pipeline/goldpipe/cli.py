@@ -152,6 +152,19 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     print(f"[land] {ok}/{len(land['sources'])} land services healthy")
     pub.section("land_sources", "land_sources.json", land, len(land["sources"]))
 
+    # --- Gazetteer (shared with the app for on-device geocoding)
+    from .gazetteer import PLACES
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    pub.section(
+        "gazetteer", "gazetteer.json",
+        {
+            "schema_version": config.SCHEMA_VERSION,
+            "updated_at": now.isoformat().replace("+00:00", "Z"),
+            "places": {k: [v[0], v[1]] for k, v in PLACES.items()},
+        },
+        len(PLACES),
+    )
+
     # --- Fossicking (legal areas) registry health check
     fossick = build_fossicking_sources()
     ok = sum(1 for s in fossick["sources"].values() if s["status"] == "ok")

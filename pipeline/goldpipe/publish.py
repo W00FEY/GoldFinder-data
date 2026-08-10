@@ -76,10 +76,17 @@ class Publisher:
                 pass
         return {}
 
+    # Sources worth waking the user's phone for. News articles are listed in
+    # the Community tab but never notified (clickbait was pinging the user).
+    NOTIFY_SOURCES = {"ozmin", "youtube", "reddit", "community"}
+
     def finish(self, new_reports: list[dict], today: date) -> dict:
         recent = 0
         for f in new_reports:
-            fs = f["properties"].get("first_seen", "")
+            props = f["properties"]
+            if props.get("source") not in self.NOTIFY_SOURCES:
+                continue
+            fs = props.get("first_seen", "")
             try:
                 d = date.fromisoformat(fs)
                 if (today - d).days <= config.NEW_REPORT_NOTIFY_DAYS:

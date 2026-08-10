@@ -17,6 +17,7 @@ REQUIRED_SECTIONS = {
     "gold_occurrences", "new_reports", "rainfall", "goldshift",
     "community_reports", "tenement_sources", "camp_sites", "land_sources",
     "waterway_sources", "track_sources", "towers", "fossicking_sources",
+    "gazetteer",
 }
 
 
@@ -50,6 +51,8 @@ def test_synthetic_publish_matches_contract(tmp_path):
     pub.section("towers", "towers.geojson", geojson([]), 0)
     pub.section("fossicking_sources", "fossicking_sources.json",
                 {"schema_version": 1, "updated_at": "x", "sources": {}}, 0)
+    pub.section("gazetteer", "gazetteer.json",
+                {"schema_version": 1, "updated_at": "x", "places": {}}, 0)
     manifest = pub.finish([], date(2026, 8, 5))
     _check_manifest(manifest)
     assert manifest["sections"]["rainfall"]["status"] == "stale"
