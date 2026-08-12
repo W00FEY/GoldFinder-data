@@ -19,6 +19,7 @@ from .fetch_towers import fetch_tower_sites
 from .fossicking import build_fossicking_sources
 from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
+from .fetch_gauges import fetch_gauges
 from .fetch_ozmin import fetch_gold_occurrences
 from .fetch_prices import fetch_prices
 from .fetch_rainfall import fetch_rainfall
@@ -172,6 +173,16 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     print(f"[fossicking] {ok}/{len(fossick['sources'])} services healthy")
     pub.section("fossicking_sources", "fossicking_sources.json", fossick,
                 len(fossick["sources"]))
+
+    # --- River flow gauges near gold country (fail-soft per state)
+    if occurrences is not None:
+        gauges = fetch_gauges(occurrences)
+        if gauges is not None:
+            pub.section("gauges", "gauges.geojson", geojson(gauges), len(gauges))
+        else:
+            pub.section("gauges", "gauges.geojson", None, None)
+    else:
+        pub.section("gauges", "gauges.geojson", None, None)
 
     # --- Metal/oil prices in AUD (fail-soft; charts tolerate a stale day)
     prices = fetch_prices()
