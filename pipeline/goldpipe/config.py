@@ -8,6 +8,10 @@ SCHEMA_VERSION = 1
 # records that must be filtered out).
 AUS_BBOX = (112.0, -44.0, 154.5, -9.0)  # lon_min, lat_min, lon_max, lat_max
 
+# --- Prices (Yahoo Finance keyless chart API) ---
+YAHOO_CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+PRICES_RANGE = "5y"
+
 # --- OZMIN (Geoscience Australia) ---
 OZMIN_WFS = "https://services.ga.gov.au/gis/earthresource/wfs"
 OZMIN_TYPENAME = "erl:MineralOccurrenceView"

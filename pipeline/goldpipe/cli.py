@@ -20,6 +20,7 @@ from .fossicking import build_fossicking_sources
 from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_ozmin import fetch_gold_occurrences
+from .fetch_prices import fetch_prices
 from .fetch_rainfall import fetch_rainfall
 from .goldshift import compute_goldshift, rainfall_features
 from .grid import gold_grid
@@ -171,6 +172,15 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
     print(f"[fossicking] {ok}/{len(fossick['sources'])} services healthy")
     pub.section("fossicking_sources", "fossicking_sources.json", fossick,
                 len(fossick["sources"]))
+
+    # --- Metal/oil prices in AUD (fail-soft; charts tolerate a stale day)
+    prices = fetch_prices()
+    if prices is not None:
+        n = len(prices["series"].get("gold_aud", []))
+        print(f"[prices] gold {prices['latest'].get('gold_aud')} AUD/oz ({n} days)")
+        pub.section("prices", "prices.json", prices, n)
+    else:
+        pub.section("prices", "prices.json", None, None)
 
     # --- Waterway + track registries health check
     water = build_waterway_sources()
