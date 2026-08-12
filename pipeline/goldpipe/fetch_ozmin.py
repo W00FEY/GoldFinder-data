@@ -20,6 +20,18 @@ def _in_australia(lon: float, lat: float) -> bool:
     return x0 <= lon <= x1 and y0 <= lat <= y1
 
 
+def _record_url(oid: str) -> str:
+    """Human-reachable official record. GA's pid.geoscience.gov.au resolver
+    303s to a WFS query that errors (verified 2026-08), so link straight to
+    the working GetFeature-by-id request instead."""
+    return (
+        "https://services.ga.gov.au/gis/earthresource/wfs"
+        "?service=WFS&version=2.0.0&request=GetFeature"
+        "&typeNames=erl:MineralOccurrenceView"
+        f"&featureID={oid}&outputFormat=application/json"
+    )
+
+
 def _normalize(feature: dict) -> dict | None:
     geom = feature.get("geometry")
     if not geom or geom.get("type") != "Point":
@@ -32,18 +44,19 @@ def _normalize(feature: dict) -> dict | None:
     name = props.get("name") or props.get("mineName") or "Unnamed"
     model = props.get("mineralDepositModel") or ""
     alluvial = bool(_ALLUVIAL.search(f"{model} {name}"))
+    oid = str(feature.get("id") or props.get("identifier"))
     return {
         "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [round(lon, 5), round(lat, 5)]},
         "properties": {
-            "id": str(feature.get("id") or props.get("identifier")),
+            "id": oid,
             "name": name,
             "occ_type": occ_type,
             "commodity": props.get("commodity") or "Gold",
             "deposit_model": model or None,
             "alluvial": alluvial,
             "weight": config.OCC_WEIGHTS.get(occ_type, config.DEFAULT_OCC_WEIGHT),
-            "url": props.get("specification_uri"),
+            "url": _record_url(oid),
         },
     }
 
