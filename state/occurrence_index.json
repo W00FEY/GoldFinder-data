@@ -2,8 +2,10 @@
  "community": {
   "https://news.google.com/rss/articles/CBMi0AJBVV95cUxPckNaLUxNY3kzYW9IdFZZWGh1aGtaTEVuU25LbVhFdFNwTlc3SXlSOWVRTzdUVGF5Z3ZySVVqR1NZc1Y5M2plWXhNbW1HSWdvQVpDTFU4bm83enBPaEpmdzQ3RERsSUpVV3VySGtHWXcxWTRZcG9rUWQ3VlpmYVZqQW5mTVNiaUF3THA3NlFGNGpQSTJadW5BTHFSbVA4NTdLcWY4ZlhHd2xYRGE0QUVHdlFuUmtfOHM5bTc0VlRHSVBMbDlNQ1AxZ1N2RWlOV2RhTnVuTzhFckxFb0Y1SEZ4X2dobUNPdHMtUXRucUhVdC0wQm5WS3puXzhzOHdidGRzSGRibWp5WHM1b3BkVlU3N2xiSDFobV9sdnRScWRHYUpKdFFDMk1ieUI2R19OYjdPSXNNUVptYWlJUEJ0NDRGbG5rdnJHTnZueUR0V0U2VTc?oc=5": "2026-08-06",
   "https://news.google.com/rss/articles/CBMifkFVX3lxTFA5VzROQU1tbTBKRkdnRVVOc0wyZ0dlSmRUSTBTMVZobVpwcjVoOU9sN3RBWWRaSkJuaHhoTUc2bGM1V2R5UktJc0hBdnM0M0hXdG9EcUtDSDlKekl4aUFkM0xxZ3R4NlVhWnh4NXJ6U1dJVkJyT1lyZGpXYnFWdw?oc=5": "2026-08-06",
+  "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNOS1tRzVobG1YeWxtUVd4VUpac1VtY3p3eFdNSjh4V3V1TlhzU3hCOE1OejF5WjRTRFpZZXJQUlluMXVRbHg2bkV2U1BjcHBxVE1MbWJwYk1FRmhXaXNkdkVtOVlpSFh1QWtVVVIzNEFkWWFzMU9sRFJjd0MtdURXN0tHdUVGZUxWZ0lN?oc=5": "2026-08-13",
   "https://news.google.com/rss/articles/CBMimwJBVV95cUxPYi04ZExtZ2llWi1xRl9nVm1ORFhpMnRDVDNuMi1VTmh5MnNzRlRNOUF3X1czZkhnRklqbWN3am1KR19xek1WeVo2X2FiZEQ1SHc2a2ZpOE13ZmVQN0tkeVFKVmtjcFVHMjRJMDE2dTBST0tEZTBRNWtDU1RHUHdpQVNHeGNtd3FjNjFDVnJiZEp5c05kOFpBTXBZLThldVUxSXhyM2tIMlZjSk00Mlh1dVFqeFduQXhvTFc4TWI0bmJmcmNkZ1dSX2djaDh5eGRUc1cwNnIxdVVhT2FCN2JleU5LaHBwUldQa09UakVPcmlMM1FXVExkZnhETkZjSi1RRm5oZTI3dS10WWswMFMyalJ6VlVjSnlXY1Jn?oc=5": "2026-08-06",
   "https://www.youtube.com/shorts/4E6OKkLQblY": "2026-08-06",
+  "https://www.youtube.com/shorts/_YXQMRXuu4A": "2026-08-13",
   "https://www.youtube.com/shorts/kDZjmNXw2mY": "2026-08-06",
   "https://www.youtube.com/shorts/nZFUVuTFd1Y": "2026-08-06",
   "https://www.youtube.com/watch?v=1_Mfmd36u6Y": "2026-08-06",
@@ -30,6 +32,7 @@
   "https://www.youtube.com/watch?v=j9RgCaufXt4": "2026-08-06",
   "https://www.youtube.com/watch?v=mvSX4yTOIqE": "2026-08-06",
   "https://www.youtube.com/watch?v=nvm8i76BSvA": "2026-08-06",
+  "https://www.youtube.com/watch?v=rkNEm7ZXGiM": "2026-08-13",
   "https://www.youtube.com/watch?v=slDrNXorJo0": "2026-08-06",
   "https://www.youtube.com/watch?v=tO7QvDtKOZc": "2026-08-06",
   "https://www.youtube.com/watch?v=uLsEwQT4pxA": "2026-08-06",
@@ -1106,6 +1109,151 @@
   "ga.erl.mineraloccurrenceview.1096614": {
    "first_seen": "2026-08-11",
    "hash": "315261e69515b70c",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100716": {
+   "first_seen": "2026-08-13",
+   "hash": "e973f80ac80b3f74",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100717": {
+   "first_seen": "2026-08-13",
+   "hash": "bcf3715025970dcf",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100718": {
+   "first_seen": "2026-08-13",
+   "hash": "dca6d11582126e1a",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100719": {
+   "first_seen": "2026-08-13",
+   "hash": "aa600d68ea3081cc",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100720": {
+   "first_seen": "2026-08-13",
+   "hash": "cfd75cb35b2e8ca0",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100721": {
+   "first_seen": "2026-08-13",
+   "hash": "7becbfa82930fe28",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100722": {
+   "first_seen": "2026-08-13",
+   "hash": "c4b7b9500f0f1162",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100723": {
+   "first_seen": "2026-08-13",
+   "hash": "127b358cb6a0272c",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100724": {
+   "first_seen": "2026-08-13",
+   "hash": "0a2d7bef53aa1860",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100725": {
+   "first_seen": "2026-08-13",
+   "hash": "c0fb4a5852c6be92",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100726": {
+   "first_seen": "2026-08-13",
+   "hash": "784e343f0a12cdbb",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100727": {
+   "first_seen": "2026-08-13",
+   "hash": "4e03a42cd42dfa62",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100728": {
+   "first_seen": "2026-08-13",
+   "hash": "2814d672b8c33850",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100729": {
+   "first_seen": "2026-08-13",
+   "hash": "a19f0fdde5c11050",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100730": {
+   "first_seen": "2026-08-13",
+   "hash": "7f2d92cd1a4bfc10",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100731": {
+   "first_seen": "2026-08-13",
+   "hash": "2dd776637ee2af0f",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100732": {
+   "first_seen": "2026-08-13",
+   "hash": "872099f361736d54",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100733": {
+   "first_seen": "2026-08-13",
+   "hash": "27374c970d0978a6",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100734": {
+   "first_seen": "2026-08-13",
+   "hash": "72c7ca6d19f6fca4",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100735": {
+   "first_seen": "2026-08-13",
+   "hash": "31da9f746f4b0694",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100736": {
+   "first_seen": "2026-08-13",
+   "hash": "23a7b18a8b0675fa",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100737": {
+   "first_seen": "2026-08-13",
+   "hash": "5e555208dbdbdd24",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100738": {
+   "first_seen": "2026-08-13",
+   "hash": "50f578344eea028a",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100739": {
+   "first_seen": "2026-08-13",
+   "hash": "0c96a307b1799af2",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100740": {
+   "first_seen": "2026-08-13",
+   "hash": "e7c32b86f777360c",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100741": {
+   "first_seen": "2026-08-13",
+   "hash": "64a9df4222fccdc9",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100742": {
+   "first_seen": "2026-08-13",
+   "hash": "59871d425d4e3032",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100743": {
+   "first_seen": "2026-08-13",
+   "hash": "29351885f0c648f2",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1100744": {
+   "first_seen": "2026-08-13",
+   "hash": "c15d52109f7cd49f",
    "seeded": false
   },
   "ga.erl.mineraloccurrenceview.333286": {
@@ -32672,6 +32820,26 @@
    "first_seen": "2026-08-05",
    "hash": "d3558612c7bd0d5c",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.927488": {
+   "first_seen": "2026-08-13",
+   "hash": "7478eec5c695552f",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927489": {
+   "first_seen": "2026-08-13",
+   "hash": "5f676b83ec0dc301",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927490": {
+   "first_seen": "2026-08-13",
+   "hash": "41042bdf97df319b",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927491": {
+   "first_seen": "2026-08-13",
+   "hash": "02a2b7c63f4b3f14",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.927502": {
    "first_seen": "2026-08-05",
