@@ -9,6 +9,7 @@
   "https://www.youtube.com/shorts/_YXQMRXuu4A": "2026-08-13",
   "https://www.youtube.com/shorts/kDZjmNXw2mY": "2026-08-06",
   "https://www.youtube.com/shorts/nZFUVuTFd1Y": "2026-08-06",
+  "https://www.youtube.com/shorts/oBdzG0yDRF4": "2026-08-31",
   "https://www.youtube.com/watch?v=1_Mfmd36u6Y": "2026-08-06",
   "https://www.youtube.com/watch?v=47_G43_mqbQ": "2026-08-06",
   "https://www.youtube.com/watch?v=4qG7-4r9GNw": "2026-08-06",
@@ -121,6 +122,11 @@
    "hash": "93cc2f3f817c9ba3",
    "seeded": true
   },
+  "ga.erl.mineraloccurrenceview.1031920": {
+   "first_seen": "2026-08-31",
+   "hash": "070e4ea9c492afbb",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.1031953": {
    "first_seen": "2026-08-26",
    "hash": "a016a985131638b7",
@@ -218,22 +224,22 @@
   },
   "ga.erl.mineraloccurrenceview.1032334": {
    "first_seen": "2026-08-05",
-   "hash": "704e34e111df9ee8",
+   "hash": "6082fa4034f13a87",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1032335": {
    "first_seen": "2026-08-05",
-   "hash": "b806579fe67f19f3",
+   "hash": "a39448baa00d6c99",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1032336": {
    "first_seen": "2026-08-05",
-   "hash": "972c023d923175f1",
+   "hash": "28d9a93beaa9a256",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1032337": {
    "first_seen": "2026-08-05",
-   "hash": "dd64fcd400de5cc4",
+   "hash": "79a96e511c65db1e",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1032338": {
@@ -350,6 +356,11 @@
    "first_seen": "2026-08-05",
    "hash": "f6bbff158e2ea15d",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.1032364": {
+   "first_seen": "2026-08-31",
+   "hash": "c7d9f8c39859645d",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.1032380": {
    "first_seen": "2026-08-05",
@@ -523,22 +534,32 @@
   },
   "ga.erl.mineraloccurrenceview.1041828": {
    "first_seen": "2026-08-05",
-   "hash": "8a60bdc40e22264d",
+   "hash": "8ddd2cbe57fefd6d",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.1041829": {
+   "first_seen": "2026-08-31",
+   "hash": "5057433147109d02",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.1041830": {
    "first_seen": "2026-08-05",
-   "hash": "cafcc9e6e1dc577a",
+   "hash": "5a929094f3677fe8",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.1041831": {
+   "first_seen": "2026-08-31",
+   "hash": "23436603bd46bfa4",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.1041832": {
    "first_seen": "2026-08-05",
-   "hash": "86a18e625a606036",
+   "hash": "af48086b02523c41",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1041833": {
    "first_seen": "2026-08-05",
-   "hash": "b0110c1cb4da60b1",
+   "hash": "62202e03e384915f",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.1041834": {
@@ -1476,6 +1497,131 @@
    "hash": "0b6488247366ae91",
    "seeded": false
   },
+  "ga.erl.mineraloccurrenceview.1112508": {
+   "first_seen": "2026-08-31",
+   "hash": "d69d90454c2188b2",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112509": {
+   "first_seen": "2026-08-31",
+   "hash": "08d66e2295572dcd",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112510": {
+   "first_seen": "2026-08-31",
+   "hash": "c5288d5ba8db5fbc",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112511": {
+   "first_seen": "2026-08-31",
+   "hash": "3e1317385236bcba",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112512": {
+   "first_seen": "2026-08-31",
+   "hash": "cc6335377305c4be",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112513": {
+   "first_seen": "2026-08-31",
+   "hash": "7d1e7d5ab4ec5180",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112514": {
+   "first_seen": "2026-08-31",
+   "hash": "f4e0583bbbd8eb5a",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112515": {
+   "first_seen": "2026-08-31",
+   "hash": "3b3f64932d080a20",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112516": {
+   "first_seen": "2026-08-31",
+   "hash": "5e5b82181b726654",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112517": {
+   "first_seen": "2026-08-31",
+   "hash": "cb6b58b0e48559da",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112518": {
+   "first_seen": "2026-08-31",
+   "hash": "7563fba32ff3b099",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112519": {
+   "first_seen": "2026-08-31",
+   "hash": "26132006e994dc52",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112520": {
+   "first_seen": "2026-08-31",
+   "hash": "3cb8f8aed5df5d35",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112521": {
+   "first_seen": "2026-08-31",
+   "hash": "e25c02c9408e2b16",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112522": {
+   "first_seen": "2026-08-31",
+   "hash": "ab0544b273a944bb",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112523": {
+   "first_seen": "2026-08-31",
+   "hash": "3981d1edf942dd29",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112524": {
+   "first_seen": "2026-08-31",
+   "hash": "2a0cd332b424ba50",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112525": {
+   "first_seen": "2026-08-31",
+   "hash": "76307429300dd46b",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112526": {
+   "first_seen": "2026-08-31",
+   "hash": "200f26b9ba200fae",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112527": {
+   "first_seen": "2026-08-31",
+   "hash": "eafaddf4c31b1438",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112528": {
+   "first_seen": "2026-08-31",
+   "hash": "592d1de87c78ad2c",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112529": {
+   "first_seen": "2026-08-31",
+   "hash": "c126afb2fa14d967",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112530": {
+   "first_seen": "2026-08-31",
+   "hash": "a98b1e75a72edef7",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112531": {
+   "first_seen": "2026-08-31",
+   "hash": "abc7f78b50640849",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1112532": {
+   "first_seen": "2026-08-31",
+   "hash": "51457a8810d08f86",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.333286": {
    "first_seen": "2026-08-05",
    "hash": "99d2c6bfb52de759",
@@ -1568,7 +1714,7 @@
   },
   "ga.erl.mineraloccurrenceview.333327": {
    "first_seen": "2026-08-05",
-   "hash": "9d92d30cebcfe5b9",
+   "hash": "79d12ae4ec7fc4f2",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.333329": {
@@ -3028,7 +3174,7 @@
   },
   "ga.erl.mineraloccurrenceview.333964": {
    "first_seen": "2026-08-05",
-   "hash": "6e5c9de864f92722",
+   "hash": "1ab119d322a83afe",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.333967": {
@@ -3353,7 +3499,7 @@
   },
   "ga.erl.mineraloccurrenceview.334099": {
    "first_seen": "2026-08-05",
-   "hash": "9ac6ff6c1a528e5d",
+   "hash": "af0b4fa470ceab58",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.334100": {
@@ -6043,7 +6189,7 @@
   },
   "ga.erl.mineraloccurrenceview.335268": {
    "first_seen": "2026-08-05",
-   "hash": "f912eb0cb3320294",
+   "hash": "71f633b27cc7c101",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.335275": {
@@ -6073,7 +6219,7 @@
   },
   "ga.erl.mineraloccurrenceview.335283": {
    "first_seen": "2026-08-05",
-   "hash": "d8117e86da0ec9cf",
+   "hash": "e9a7bfd7359ffd1f",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.335284": {
@@ -6698,7 +6844,7 @@
   },
   "ga.erl.mineraloccurrenceview.335550": {
    "first_seen": "2026-08-05",
-   "hash": "6b0d2dcd86ecd881",
+   "hash": "9004db5d15db963c",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.335551": {
@@ -12203,7 +12349,7 @@
   },
   "ga.erl.mineraloccurrenceview.339687": {
    "first_seen": "2026-08-05",
-   "hash": "f25df1a6a8a78cf1",
+   "hash": "30881517cdb60d58",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.339695": {
@@ -14738,7 +14884,7 @@
   },
   "ga.erl.mineraloccurrenceview.341045": {
    "first_seen": "2026-08-05",
-   "hash": "520433a24da7f71f",
+   "hash": "b5b77bab1d7c96a0",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.341052": {
@@ -15463,7 +15609,7 @@
   },
   "ga.erl.mineraloccurrenceview.341631": {
    "first_seen": "2026-08-05",
-   "hash": "c8ab96f851a425c3",
+   "hash": "f5e4de30c4d642c3",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.341632": {
@@ -16883,7 +17029,7 @@
   },
   "ga.erl.mineraloccurrenceview.342322": {
    "first_seen": "2026-08-05",
-   "hash": "72f2ed94a6c3ad87",
+   "hash": "75512b0a36641307",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.342323": {
@@ -18663,12 +18809,12 @@
   },
   "ga.erl.mineraloccurrenceview.433745": {
    "first_seen": "2026-08-05",
-   "hash": "62cadd9d42b670c2",
+   "hash": "059af65a462578c3",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.433746": {
    "first_seen": "2026-08-05",
-   "hash": "b8824af94ffb7623",
+   "hash": "15ec019fe0600559",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.433966": {
@@ -27283,7 +27429,7 @@
   },
   "ga.erl.mineraloccurrenceview.598816": {
    "first_seen": "2026-08-05",
-   "hash": "5d04aaa6f90962fc",
+   "hash": "3edeeec1bb68edc8",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.599070": {
@@ -28388,7 +28534,7 @@
   },
   "ga.erl.mineraloccurrenceview.627976": {
    "first_seen": "2026-08-05",
-   "hash": "926820af7d625c9a",
+   "hash": "f358399863d50040",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.627977": {
@@ -28403,7 +28549,7 @@
   },
   "ga.erl.mineraloccurrenceview.627979": {
    "first_seen": "2026-08-05",
-   "hash": "5c1bbb1fa9fdaae4",
+   "hash": "d18ea7b4489543f2",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.627980": {
@@ -28748,7 +28894,7 @@
   },
   "ga.erl.mineraloccurrenceview.636947": {
    "first_seen": "2026-08-05",
-   "hash": "500381889c252e56",
+   "hash": "d8954157e8c6f9f9",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.636948": {
@@ -28993,7 +29139,7 @@
   },
   "ga.erl.mineraloccurrenceview.644621": {
    "first_seen": "2026-08-05",
-   "hash": "91b20de29ea0eac8",
+   "hash": "612d9067e80e8d59",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.644622": {
@@ -29058,7 +29204,7 @@
   },
   "ga.erl.mineraloccurrenceview.644667": {
    "first_seen": "2026-08-05",
-   "hash": "a8cdddb646bbdc1c",
+   "hash": "4fac03cdba3fb98f",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.644670": {
@@ -29878,22 +30024,22 @@
   },
   "ga.erl.mineraloccurrenceview.654466": {
    "first_seen": "2026-08-05",
-   "hash": "fba247588e3f764d",
+   "hash": "2e63ebe00d880372",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.654467": {
    "first_seen": "2026-08-05",
-   "hash": "15cf953c892e13c6",
+   "hash": "e696a036482869ad",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.654468": {
    "first_seen": "2026-08-05",
-   "hash": "2650228d24262d7a",
+   "hash": "3cb72fd31a113b1b",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.654469": {
    "first_seen": "2026-08-05",
-   "hash": "468322a42070e339",
+   "hash": "c856685806db96f9",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.654470": {
@@ -31253,12 +31399,12 @@
   },
   "ga.erl.mineraloccurrenceview.865629": {
    "first_seen": "2026-08-05",
-   "hash": "b287e1972e50e741",
+   "hash": "973bd335c26dd472",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.865630": {
    "first_seen": "2026-08-05",
-   "hash": "c7be12276bbe74e3",
+   "hash": "5cb0b453dfc32689",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.865648": {
@@ -31458,7 +31604,7 @@
   },
   "ga.erl.mineraloccurrenceview.870275": {
    "first_seen": "2026-08-05",
-   "hash": "cf37b0bbe3292408",
+   "hash": "91e1f922ce50ea58",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.870276": {
@@ -32073,7 +32219,7 @@
   },
   "ga.erl.mineraloccurrenceview.922530": {
    "first_seen": "2026-08-05",
-   "hash": "f4be936fb95c990a",
+   "hash": "17e3c3daa505b38a",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.922818": {
@@ -33096,6 +33242,16 @@
    "hash": "d3558612c7bd0d5c",
    "seeded": true
   },
+  "ga.erl.mineraloccurrenceview.927483": {
+   "first_seen": "2026-08-31",
+   "hash": "6d228a3c57c98ee5",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927484": {
+   "first_seen": "2026-08-31",
+   "hash": "115fe3a529069a1b",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.927488": {
    "first_seen": "2026-08-13",
    "hash": "7478eec5c695552f",
@@ -33114,6 +33270,16 @@
   "ga.erl.mineraloccurrenceview.927491": {
    "first_seen": "2026-08-13",
    "hash": "02a2b7c63f4b3f14",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927500": {
+   "first_seen": "2026-08-31",
+   "hash": "254ba9667eace723",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.927501": {
+   "first_seen": "2026-08-31",
+   "hash": "55105262cc9388b1",
    "seeded": false
   },
   "ga.erl.mineraloccurrenceview.927502": {
@@ -33145,6 +33311,11 @@
    "first_seen": "2026-08-05",
    "hash": "9e333d560c22a70f",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.927513": {
+   "first_seen": "2026-08-31",
+   "hash": "6afa40c9d39fde78",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.927518": {
    "first_seen": "2026-08-05",
@@ -33198,22 +33369,22 @@
   },
   "ga.erl.mineraloccurrenceview.927876": {
    "first_seen": "2026-08-05",
-   "hash": "8247625799aa9092",
+   "hash": "f879c42d00746ed4",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.927877": {
    "first_seen": "2026-08-05",
-   "hash": "cfa164f48a3d7720",
+   "hash": "4074f715d71a1c80",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.927878": {
    "first_seen": "2026-08-05",
-   "hash": "23d34555e5c9727b",
+   "hash": "ab92336d2192da6f",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.927879": {
    "first_seen": "2026-08-05",
-   "hash": "748f125e5acce5f1",
+   "hash": "77f8364d0939bb68",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.927904": {
@@ -33321,6 +33492,11 @@
    "hash": "e4686ac515e5c0e2",
    "seeded": false
   },
+  "ga.erl.mineraloccurrenceview.927958": {
+   "first_seen": "2026-08-31",
+   "hash": "b951b3386ab39ff4",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.927982": {
    "first_seen": "2026-08-05",
    "hash": "75f7f90d162c899f",
@@ -33356,6 +33532,11 @@
    "hash": "bf5d64321b67942b",
    "seeded": true
   },
+  "ga.erl.mineraloccurrenceview.928013": {
+   "first_seen": "2026-08-31",
+   "hash": "c390ec7a6b571a79",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.928015": {
    "first_seen": "2026-08-05",
    "hash": "ffc1fe1d96fcb457",
@@ -33370,6 +33551,16 @@
    "first_seen": "2026-08-05",
    "hash": "f176acb7b08a8084",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.928023": {
+   "first_seen": "2026-08-31",
+   "hash": "468322a42070e339",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.928024": {
+   "first_seen": "2026-08-31",
+   "hash": "d41d6958f6c48f82",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.928029": {
    "first_seen": "2026-08-05",
@@ -33471,6 +33662,11 @@
    "hash": "57ab270ec83fbfe7",
    "seeded": true
   },
+  "ga.erl.mineraloccurrenceview.929524": {
+   "first_seen": "2026-08-31",
+   "hash": "5a997a7c5d10c1e9",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.929615": {
    "first_seen": "2026-08-05",
    "hash": "b1a03e78e6729652",
@@ -33553,12 +33749,12 @@
   },
   "ga.erl.mineraloccurrenceview.978045": {
    "first_seen": "2026-08-05",
-   "hash": "aad875bcf4d07805",
+   "hash": "306e223ec22f7f4e",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.978046": {
    "first_seen": "2026-08-05",
-   "hash": "56d46bb292c9e728",
+   "hash": "4f26f0e4a577350a",
    "seeded": true
   }
  }
