@@ -3332,6 +3332,11 @@
    "hash": "b7b0bd2828becfa4",
    "seeded": true
   },
+  "ga.erl.mineraloccurrenceview.333995": {
+   "first_seen": "2026-09-30",
+   "hash": "82b91f05e31d6e36",
+   "seeded": false
+  },
   "ga.erl.mineraloccurrenceview.333996": {
    "first_seen": "2026-08-05",
    "hash": "56f0cf6194f310f4",
@@ -9161,6 +9166,11 @@
    "first_seen": "2026-08-05",
    "hash": "aa579cfc26c9f412",
    "seeded": true
+  },
+  "ga.erl.mineraloccurrenceview.336627": {
+   "first_seen": "2026-09-30",
+   "hash": "8b91866e75957c57",
+   "seeded": false
   },
   "ga.erl.mineraloccurrenceview.336656": {
    "first_seen": "2026-08-25",
