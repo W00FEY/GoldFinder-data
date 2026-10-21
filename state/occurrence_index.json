@@ -22,6 +22,7 @@
   "https://www.youtube.com/watch?v=8jA2iLkVE-s": "2026-08-06",
   "https://www.youtube.com/watch?v=9M1wE3Ei25s": "2026-10-20",
   "https://www.youtube.com/watch?v=AidFd5XYGN0": "2026-08-06",
+  "https://www.youtube.com/watch?v=BZTANsdXXGM": "2026-10-21",
   "https://www.youtube.com/watch?v=F19ylHaS2mA": "2026-08-26",
   "https://www.youtube.com/watch?v=FNZwsyA9rhM": "2026-08-06",
   "https://www.youtube.com/watch?v=FhxaHIjyRvk": "2026-08-06",
@@ -1709,6 +1710,31 @@
   "ga.erl.mineraloccurrenceview.1112678": {
    "first_seen": "2026-09-24",
    "hash": "d612165cd7d5b75b",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1119521": {
+   "first_seen": "2026-10-21",
+   "hash": "4649146faf0ae72e",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1119522": {
+   "first_seen": "2026-10-21",
+   "hash": "354f8a8381bbaf6d",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1119523": {
+   "first_seen": "2026-10-21",
+   "hash": "0977afefeebafde9",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1119524": {
+   "first_seen": "2026-10-21",
+   "hash": "fc45cb13498e172c",
+   "seeded": false
+  },
+  "ga.erl.mineraloccurrenceview.1119525": {
+   "first_seen": "2026-10-21",
+   "hash": "cc41ccacec5ca479",
    "seeded": false
   },
   "ga.erl.mineraloccurrenceview.333286": {
