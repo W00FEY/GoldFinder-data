@@ -21,6 +21,7 @@ from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_gauges import fetch_gauges
 from .fetch_ozmin import fetch_gold_occurrences
+from .fetch_states import REGISTERS as STATE_REGISTERS, fetch_state_gold, merge as merge_state
 from .fetch_vic import fetch_vic_gold_occurrences, merge as merge_vic
 from .fetch_prices import fetch_prices
 from .fetch_rainfall import fetch_rainfall
@@ -55,6 +56,17 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
             print(f"[gsv] {len(vic)} VIC gold records, {len(occurrences) - before} added after dedupe")
         except Exception as e:  # noqa: BLE001
             print(f"[gsv] FAILED (national records only today): {e}")
+
+        # --- WA and NSW state registers, folded to one site per cell (fail-soft)
+        for src in STATE_REGISTERS:
+            try:
+                sites, raw = fetch_state_gold(src)
+                before = len(occurrences)
+                occurrences = merge_state(occurrences, sites)
+                print(f"[{src}] {raw} records -> {len(sites)} sites, "
+                      f"{len(occurrences) - before} added after dedupe")
+            except Exception as e:  # noqa: BLE001
+                print(f"[{src}] FAILED (skipped today): {e}")
 
     new_reports: list[dict] = []
     if occurrences is not None:

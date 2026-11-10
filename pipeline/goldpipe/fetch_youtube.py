@@ -15,6 +15,7 @@ from .gazetteer import locate
 from .http import SESSION
 
 _ATOM = "{http://www.w3.org/2005/Atom}"
+_YT = "{http://www.youtube.com/xml/schemas/2015}"
 MAX_AGE_DAYS = 90
 
 # Video titles that suggest an actual find/session rather than gear reviews.
@@ -56,9 +57,12 @@ def _fetch_channel(name: str, channel_id: str, cutoff: datetime) -> list[dict]:
         else:
             home = config.YOUTUBE_CHANNEL_HOMES.get(name)
             lon, lat, place = (home[0], home[1], home[2]) if home else (None, None, None)
+        video_id = entry.findtext(f"{_YT}videoId") or ""
         reports.append(
             {
                 "id": url,
+                "channel": name,
+                "image": f"https://i.ytimg.com/vi/{video_id}/mqdefault.jpg" if video_id else None,
                 "title": f"{title} — {name}"[:200],
                 "source": "youtube",
                 "posted_at": published.astimezone(timezone.utc)

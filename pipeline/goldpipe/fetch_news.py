@@ -61,10 +61,20 @@ def fetch_news_reports() -> list[dict] | None:
             continue
         if posted < cutoff:
             continue
+        src_el = item.find("source")
+        publisher = (src_el.text or "").strip() if src_el is not None else ""
+        domain = (src_el.get("url") or "") if src_el is not None else ""
+        # Google appends " - Publisher" to every headline; keep it separate.
+        if publisher and title.endswith(f" - {publisher}"):
+            title = title[: -len(publisher) - 3].strip()
+        hit = locate(title)
         reports.append(
             {
                 "id": link,
                 "title": title[:200],
+                "publisher": publisher or None,
+                "australian": ".au" in domain.split("//")[-1].split("/")[0],
+                "place": hit[2] if hit else None,
                 "source": "news",
                 "posted_at": posted.astimezone(timezone.utc)
                 .replace(microsecond=0).isoformat().replace("+00:00", "Z"),
@@ -73,5 +83,34 @@ def fetch_news_reports() -> list[dict] | None:
                 "lon": None,
             }
         )
-    reports.sort(key=lambda r: r["posted_at"], reverse=True)
-    return reports
+    return dedupe_stories(reports)
+
+
+_WORD = re.compile(r"[a-z0-9$]+")
+_STOP = {"the", "a", "an", "in", "of", "to", "and", "for", "on", "after", "with",
+         "his", "her", "at", "is", "as", "by", "from", "gold", "australian",
+         "australia", "man", "prospector", "finds", "found", "nugget"}
+
+
+def _key_words(title: str) -> set[str]:
+    return {w for w in _WORD.findall(title.lower()) if w not in _STOP and len(w) > 2}
+
+
+def dedupe_stories(reports: list[dict]) -> list[dict]:
+    """The same find is re-reported by dozens of overseas outlets. Keep one
+    article per story, preferring an Australian publisher, then the earliest."""
+    ranked = sorted(reports, key=lambda r: (not r.get("australian"), r["posted_at"]))
+    kept: list[tuple[set[str], dict]] = []
+    for r in ranked:
+        words = _key_words(r["title"])
+        dup = False
+        for other, _ in kept:
+            union = words | other
+            if union and len(words & other) / len(union) >= 0.5:
+                dup = True
+                break
+        if not dup:
+            kept.append((words, r))
+    out = [r for _, r in kept]
+    out.sort(key=lambda r: r["posted_at"], reverse=True)
+    return out
