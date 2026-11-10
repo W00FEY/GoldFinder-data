@@ -32,6 +32,10 @@ OCC_WEIGHTS = {
 }
 DEFAULT_OCC_WEIGHT = 0.5
 
+# Victoria's GSV register records ~37x more gold sites than OZMIN holds for
+# the state; weight them down so state-to-state comparisons stay fair.
+GSV_WEIGHT = 0.35
+
 # --- Rainfall grid ---
 CELL_DEG = 0.25          # grid cell size in degrees
 RAIN_DAYS = 14           # history window

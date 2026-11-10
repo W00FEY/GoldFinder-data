@@ -21,6 +21,7 @@ from .gazetteer import locate
 from .fetch_youtube import fetch_youtube_reports
 from .fetch_gauges import fetch_gauges
 from .fetch_ozmin import fetch_gold_occurrences
+from .fetch_vic import fetch_vic_gold_occurrences, merge as merge_vic
 from .fetch_prices import fetch_prices
 from .fetch_rainfall import fetch_rainfall
 from .goldshift import compute_goldshift, rainfall_features
@@ -29,6 +30,7 @@ from .land import build_land_sources
 from .waterways import build_track_sources, build_waterway_sources
 from .publish import Publisher, geojson
 from .tenements import build_tenement_sources
+from .vic_geology import build_vic_geology_sources
 
 
 def run_all(out_dir: Path, state_dir: Path) -> int:
@@ -43,6 +45,16 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
         print(f"[ozmin] {len(occurrences)} gold occurrences")
     except Exception as e:  # noqa: BLE001
         print(f"[ozmin] FAILED: {e}")
+
+    # --- Victoria's own (much denser) gold register, merged in (fail-soft)
+    if occurrences is not None:
+        try:
+            vic = fetch_vic_gold_occurrences()
+            before = len(occurrences)
+            occurrences = merge_vic(occurrences, vic)
+            print(f"[gsv] {len(vic)} VIC gold records, {len(occurrences) - before} added after dedupe")
+        except Exception as e:  # noqa: BLE001
+            print(f"[gsv] FAILED (national records only today): {e}")
 
     new_reports: list[dict] = []
     if occurrences is not None:
@@ -192,6 +204,13 @@ def run_all(out_dir: Path, state_dir: Path) -> int:
         pub.section("prices", "prices.json", prices, n)
     else:
         pub.section("prices", "prices.json", None, None)
+
+    # --- Victorian geology registry (GSV: geology, faults, shafts, goldfields)
+    vicgeo = build_vic_geology_sources()
+    ok = sum(1 for v in vicgeo["sources"].values() if v["status"] == "ok")
+    print(f"[vic_geology] {ok}/{len(vicgeo['sources'])} services healthy")
+    pub.section("vic_geology_sources", "vic_geology_sources.json", vicgeo,
+                len(vicgeo["sources"]))
 
     # --- Waterway + track registries health check
     water = build_waterway_sources()

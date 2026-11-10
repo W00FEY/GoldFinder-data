@@ -78,7 +78,7 @@ class Publisher:
 
     # Sources worth waking the user's phone for. News articles are listed in
     # the Community tab but never notified (clickbait was pinging the user).
-    NOTIFY_SOURCES = {"ozmin", "youtube", "reddit", "community"}
+    NOTIFY_SOURCES = {"ozmin", "gsv", "youtube", "reddit", "community"}
 
     def finish(self, new_reports: list[dict], today: date) -> dict:
         recent = 0

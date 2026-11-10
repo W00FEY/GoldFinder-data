@@ -38,9 +38,10 @@ def gold_grid(features: list[dict]) -> dict[tuple[int, int], dict]:
         c = cells.setdefault(
             key, {"count": 0, "alluvial": 0, "name": None, "occupied": True}
         )
-        c["count"] += 1
-        c["occupied"] = True
         props = f["properties"]
+        # Victorian GSV records count partially (see config.GSV_WEIGHT).
+        c["count"] += config.GSV_WEIGHT if props.get("src") == "gsv" else 1
+        c["occupied"] = True
         if props.get("alluvial"):
             c["alluvial"] += 1
             if props.get("name") and props["name"] != "Unnamed":

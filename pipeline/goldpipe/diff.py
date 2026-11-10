@@ -41,6 +41,12 @@ def diff_occurrences(
     """Return (new_report_features, updated_state)."""
     ids = state.get("ids", {})
     first_run = not ids
+    # Sources already baselined. A source joining later (e.g. Victoria's GSV
+    # register) is baselined on its first appearance too, so thousands of
+    # long-known records don't arrive as "new finds". State written before
+    # this existed holds OZMIN records only.
+    seeded_sources = set(state.get("seeded_sources", ["ozmin"] if ids else []))
+    seen_sources: set[str] = set()
     cutoff = today - timedelta(days=config.NEW_REPORT_MAX_AGE_DAYS)
     new_reports: list[dict] = []
 
@@ -48,11 +54,14 @@ def diff_occurrences(
         props = f["properties"]
         oid = props["id"]
         h = _attr_hash(props)
+        src = props.get("src") or "ozmin"
+        seen_sources.add(src)
+        baseline = first_run or src not in seeded_sources
         entry = ids.get(oid)
         if entry is None:
-            # Records present on the first run ever are baseline, not "new".
-            ids[oid] = {"hash": h, "first_seen": today.isoformat(), "seeded": first_run}
-            if not first_run:
+            # Records present when their source first appears are baseline.
+            ids[oid] = {"hash": h, "first_seen": today.isoformat(), "seeded": baseline}
+            if not baseline:
                 new_reports.append(_to_report(f, today.isoformat()))
         else:
             entry["hash"] = h
@@ -62,6 +71,7 @@ def diff_occurrences(
                 new_reports.append(_to_report(f, entry["first_seen"]))
 
     state["ids"] = ids
+    state["seeded_sources"] = sorted(seeded_sources | seen_sources)
     return new_reports, state
 
 
@@ -90,9 +100,9 @@ def _to_report(feature: dict, first_seen: str) -> dict:
         "geometry": feature["geometry"],
         "properties": {
             "id": props["id"],
-            "source": "ozmin",
+            "source": props.get("src") or "ozmin",
             "title": props["name"],
-            "detail": props.get("commodity"),
+            "detail": props.get("commodity") or "Gold",
             "first_seen": first_seen,
             "url": props.get("url"),
         },
