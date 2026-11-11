@@ -84,7 +84,7 @@ def _near_gold(lon: float, lat: float, cells) -> bool:
 
 
 def _feature(state, sid, name, lon, lat, cumecs, obs_time,
-             level=None, trend=None) -> dict:
+             level=None, trend=None, dataset=None) -> dict:
     """One gauge. [cumecs] may be None when only the water level is current;
     [level] is the height on the gauge's staff in metres; [trend] is
     'rising' / 'falling' / 'steady' over roughly the last day."""
@@ -104,6 +104,9 @@ def _feature(state, sid, name, lon, lat, cumecs, obs_time,
         props["level"] = round(level, 2)
     if trend:
         props["trend"] = trend
+    if dataset:
+        # Lets the app fetch this gauge's last week for a chart.
+        props["ds"] = dataset
     return {
         "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [round(lon, 5), round(lat, 5)]},
@@ -403,7 +406,7 @@ def _fetch_aquarius_state(state: str, cfg: dict, cells) -> list[dict]:
                 str(row.get("LocationIdentifier") or row["DatasetIdentifier"]),
                 str(row.get("Location") or "").strip(),
                 float(row["LocX"]), float(row["LocY"]),
-                got[0], got[1], trend=got[2],
+                got[0], got[1], trend=got[2], dataset=row["DatasetIdentifier"],
             ))
     return feats
 
