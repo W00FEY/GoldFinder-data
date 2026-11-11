@@ -9,6 +9,9 @@ Two stacks cover five states (verified live 2026-08):
   datasets with coordinates; GET /Export/BulkExport returns a CSV whose last
   row is the latest instantaneous discharge in m^3/s.
 
+Each gauge also reports whether the water is rising or falling, and in VIC
+and QLD the current water level (height on the gauge) alongside the flow.
+
 Honest gaps: NSW's Hydstra blocks datacenter IPs (same class of block as
 BOM) and WA publishes no keyless machine-readable discharge — both states
 ship no gauges and the app says so.
@@ -80,20 +83,55 @@ def _near_gold(lon: float, lat: float, cells) -> bool:
     return False
 
 
-def _feature(state, sid, name, lon, lat, cumecs, obs_time) -> dict:
+def _feature(state, sid, name, lon, lat, cumecs, obs_time,
+             level=None, trend=None) -> dict:
+    """One gauge. [cumecs] may be None when only the water level is current;
+    [level] is the height on the gauge's staff in metres; [trend] is
+    'rising' / 'falling' / 'steady' over roughly the last day."""
+    props = {
+        "id": f"{state}:{sid}",
+        "state": state,
+        "name": name or sid,
+        "obs": obs_time,
+    }
+    if cumecs is not None:
+        props["flow"] = round(cumecs, 3)
+        props["flow_mld"] = round(cumecs * 86.4, 1)
+        props["cat"] = _flow_category(cumecs)
+    else:
+        props["cat"] = "level"
+    if level is not None:
+        props["level"] = round(level, 2)
+    if trend:
+        props["trend"] = trend
     return {
         "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [round(lon, 5), round(lat, 5)]},
-        "properties": {
-            "id": f"{state}:{sid}",
-            "state": state,
-            "name": name or sid,
-            "flow": round(cumecs, 3),
-            "flow_mld": round(cumecs * 86.4, 1),
-            "cat": _flow_category(cumecs),
-            "obs": obs_time,
-        },
+        "properties": props,
     }
+
+
+STALE_DAYS = 10
+
+
+def _fresh(iso: str, now: datetime | None = None) -> bool:
+    """False for readings so old they'd mislead (some gauges still return a
+    flow figure from years ago once their rating lapses)."""
+    try:
+        t = datetime.fromisoformat(iso)
+    except ValueError:
+        return False
+    now = now or datetime.now(timezone.utc)
+    # Gauge times are local standard time; a day's slack covers the offset.
+    return (now.replace(tzinfo=None) - t).days <= STALE_DAYS
+
+
+def _trend_from_change(first: float, last: float) -> str:
+    """Trend from the first and last reading of the past day."""
+    change = last - first
+    if abs(change) < max(0.002, 0.05 * max(abs(first), abs(last))):
+        return "steady"
+    return "rising" if change > 0 else "falling"
 
 
 # --- Hydstra (VIC, QLD) -----------------------------------------------------
@@ -133,11 +171,14 @@ def _hydstra_coords(base: str, sites: list[str]) -> dict[str, tuple[float, float
     # IIS caps query strings (~2KB) and answers 404 past it — keep chunks small.
     for i in range(0, len(sites), 60):
         chunk = sites[i:i + 60]
-        ret = _hydstra(base, {
-            "function": "get_site_geojson",
-            "version": "2",
-            "params": {"site_list": ",".join(chunk), "fields": ["stname"], "get_elev": 0},
-        })
+        try:
+            ret = _hydstra(base, {
+                "function": "get_site_geojson",
+                "version": "2",
+                "params": {"site_list": ",".join(chunk), "fields": ["stname"], "get_elev": 0},
+            })
+        except Exception:  # noqa: BLE001 — a timed-out chunk shouldn't lose the state
+            continue
         for f in ret.get("features", []):
             geom = f.get("geometry") or {}
             coords = geom.get("coordinates") or []
@@ -151,11 +192,23 @@ def _hydstra_coords(base: str, sites: list[str]) -> dict[str, tuple[float, float
     return out
 
 
-def _hydstra_latest(base: str, datasource: str, sites: list[str]) -> dict[str, tuple[float, str]]:
-    """site -> (discharge m^3/s, obs time ISO) via 100.00 -> 140.00 rating."""
-    out: dict[str, tuple[float, str]] = {}
-    for i in range(0, len(sites), 60):
-        chunk = sites[i:i + 60]
+_HYDSTRA_TREND = {"+": "rising", "-": "falling", "0": "steady"}
+
+
+def _hydstra_latest(base: str, datasource: str, sites: list[str],
+                    limit: int = 10**9) -> dict[str, dict]:
+    """site -> {flow, flow_time, level, level_time, trend}.
+
+    Level is variable 100.00 (metres on the gauge); flow is the same reading
+    passed through the site's rating to 140.00 (m^3/s). The service also
+    says whether each is rising or falling."""
+    out: dict[str, dict] = {}
+    # 40 per call: two traces per site make the query longer, and IIS
+    # answers 404 once it passes ~2KB.
+    for i in range(0, len(sites), 40):
+        if len(out) >= limit:
+            break
+        chunk = sites[i:i + 40]
         try:
             ret = _hydstra(base, {
                 "function": "get_latest_ts_values",
@@ -163,7 +216,10 @@ def _hydstra_latest(base: str, datasource: str, sites: list[str]) -> dict[str, t
                 "params": {
                     "site_list": ",".join(chunk),
                     "datasource": datasource,
-                    "trace_list": [{"varfrom": "100.00", "varto": "140.00"}],
+                    "trace_list": [
+                        {"varfrom": "100.00", "varto": "140.00"},
+                        {"varfrom": "100.00", "varto": "100.00"},
+                    ],
                 },
             })
         except Exception:  # noqa: BLE001 — a bad chunk shouldn't kill the state
@@ -186,7 +242,14 @@ def _hydstra_latest(base: str, datasource: str, sites: list[str]) -> dict[str, t
                 iso = ""
                 if len(t) >= 12:
                     iso = f"{t[0:4]}-{t[4:6]}-{t[6:8]}T{t[8:10]}:{t[10:12]}"
-                out[str(sid)] = (v, iso)
+                rec = out.setdefault(str(sid), {})
+                kind = "flow" if str(tr.get("varto")) == "140.00" else "level"
+                rec[kind] = v
+                rec[kind + "_time"] = iso
+                trend = _HYDSTRA_TREND.get(str(last.get("trend") or ""))
+                # The level's own trend is the one people can see at the creek.
+                if trend and (kind == "level" or "trend" not in rec):
+                    rec["trend"] = trend
     return out
 
 
@@ -197,13 +260,27 @@ def _fetch_hydstra_state(state: str, cfg: dict, cells) -> list[dict]:
         sid: c for sid, c in coords.items()
         if _near_gold(c[0], c[1], cells)
     }
-    picked = list(near.keys())[: config.GAUGE_MAX_PER_STATE]
-    latest = _hydstra_latest(cfg["base"], cfg["datasource"], picked)
+    # Many listed sites have no live stream data (bores, closed stations),
+    # so keep asking until enough reporting gauges are found rather than
+    # looking only at the first handful.
+    latest = _hydstra_latest(cfg["base"], cfg["datasource"], list(near.keys()),
+                             limit=config.GAUGE_MAX_PER_STATE)
     feats = []
-    for sid, (v, iso) in latest.items():
+    for sid, rec in latest.items():
         lon, lat, name = near[sid]
-        if v >= 0:
-            feats.append(_feature(state, sid, name, lon, lat, v, iso))
+        flow = rec.get("flow")
+        if flow is not None and (flow < 0 or not _fresh(rec.get("flow_time", ""))):
+            flow = None
+        level = rec.get("level")
+        if level is not None and not _fresh(rec.get("level_time", "")):
+            level = None
+        if flow is None and level is None:
+            continue
+        if len(feats) >= config.GAUGE_MAX_PER_STATE:
+            break
+        obs = rec.get("flow_time") if flow is not None else rec.get("level_time")
+        feats.append(_feature(state, sid, name, lon, lat, flow, obs or "",
+                              level=level, trend=rec.get("trend")))
     return feats
 
 
@@ -235,8 +312,9 @@ def _aquarius_datasets(cfg: dict) -> list[dict]:
     return rows or []
 
 
-def _aquarius_latest_batch(cfg: dict, datasets: list[str]) -> dict[str, tuple[float, str]]:
-    """dataset -> (m^3/s, obs time) — one CSV export, one column per dataset."""
+def _aquarius_latest_batch(cfg: dict, datasets: list[str]) -> dict[str, tuple[float, str, str]]:
+    """dataset -> (m^3/s, obs time, trend over the day) — one CSV export,
+    one column per dataset."""
     params: dict[str, str] = {
         "DateRange": "Days1",
         "TimeZone": cfg["tz"],
@@ -257,15 +335,20 @@ def _aquarius_latest_batch(cfg: dict, datasets: list[str]) -> dict[str, tuple[fl
     if start is None:
         return {}
     rows = list(csv.reader(io.StringIO("\n".join(lines[start + 1:]))))
-    out: dict[str, tuple[float, str]] = {}
+    out: dict[str, tuple[float, str, str]] = {}
     for col, ds in enumerate(datasets, start=1):
+        first = None
         last = None
         for row in rows:
             if len(row) > col and row[col].strip():
+                if first is None:
+                    first = row[col]
                 last = (row[col], row[0])
         if last:
             try:
-                out[ds] = (float(last[0]), last[1][:16].replace(" ", "T"))
+                v = float(last[0])
+                out[ds] = (v, last[1][:16].replace(" ", "T"),
+                           _trend_from_change(float(first), v))
             except ValueError:
                 pass
     return out
@@ -320,7 +403,7 @@ def _fetch_aquarius_state(state: str, cfg: dict, cells) -> list[dict]:
                 str(row.get("LocationIdentifier") or row["DatasetIdentifier"]),
                 str(row.get("Location") or "").strip(),
                 float(row["LocX"]), float(row["LocY"]),
-                got[0], got[1],
+                got[0], got[1], trend=got[2],
             ))
     return feats
 

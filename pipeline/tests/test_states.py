@@ -59,3 +59,23 @@ def test_news_keeps_one_article_per_story_preferring_australian():
         art("Fossicking season opens in Bendigo", True, "2026-10-20T07:00:00Z"),
     ])
     assert [r["title"][:10] for r in out] == ["Prospector", "Fossicking"]
+
+
+def test_gauge_feature_carries_level_and_trend():
+    from goldpipe.fetch_gauges import _feature, _fresh, _trend_from_change
+    from datetime import datetime, timezone
+    p = _feature("VIC", "406213", "Campaspe @ Redesdale", 144.5, -37.0, 0.412,
+                 "2026-11-11T13:00", level=0.816, trend="rising")["properties"]
+    assert p["flow"] == 0.412 and p["cat"] == "low"
+    assert p["level"] == 0.82 and p["trend"] == "rising"
+    # Level-only gauge: no made-up flow.
+    q = _feature("VIC", "x", "", 144.5, -37.0, None, "2026-11-11T13:00", level=1.2)["properties"]
+    assert "flow" not in q and q["cat"] == "level" and q["level"] == 1.2
+    now = datetime(2026, 11, 11, tzinfo=timezone.utc)
+    assert _fresh("2026-11-10T13:00", now)
+    assert not _fresh("2021-05-14T13:00", now)  # a lapsed rating's last value
+    assert not _fresh("", now)
+    assert _trend_from_change(1.0, 1.2) == "rising"
+    assert _trend_from_change(1.0, 0.8) == "falling"
+    assert _trend_from_change(1.0, 1.01) == "steady"
+    assert _trend_from_change(0.0, 0.0) == "steady"
