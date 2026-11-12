@@ -11,7 +11,6 @@
   "https://news.google.com/rss/articles/CBMivAFBVV95cUxQVk53RXpILW1EOVgzNE42dnJoem5wTVNuODZmZGE1bl85SENXRHZDZ0UtU05KOF9UWC03MFZvUzRWOFN1Y0NPNjgtR2g4ZVNQaDVyY1IzdFpycjRlNEotcDVMbzg5MVBFVmZmTUdndExqdzg3c00yb1N0cVdCNTBLcUNENENFQWFWdDRsdkpIQ0tTNHk1cENfTE01Si1TdVNTYS1mVkpEQ3dmYUJqRVkwRzJ3cVhUVTRQTTZQNdIBwgFBVV95cUxOWXhTSjZuVEE1SjEtbW5xRDZ1RWZuNEY0UHFscjVPWVBzTDhBZ2d2Q1FpX05TVWVJYkR3b3ZCaUtLeS1nc0VXbDh3cmtqRkZNYV9oTlBYeUFQV3dWODM0VC0xeFJRdFlqQWpUREVvVVREVWRRYXZlZmxwejVNYTdkUDNPN1JYVTIwYm9IOU96blNYYnhOU0JJWHZJd2x5dnYydERQdWdCRFdhdzd5SFhKUV9XY2VlWEhFN1hWcjdxR3cyUQ?oc=5": "2026-10-27",
   "https://news.google.com/rss/articles/CBMivgFBVV95cUxPemNTaTBCaWc5OWE1RUF2NGV6a3NhVmZpc3BVd090b0xPVlFyNzNYRzZwVl96N0FqcTFpcmdKcE5CLUNoclFTcHQtY3hfbkk0M3hlQTVlb083WE41WXhSWVpHQ2IxMndPRGgzX3pCS3ZCQ2Ryck4yQXJhX25KdEJGazVodEVoWEV5d0R0ZVVGcWRSUWxiWDB0Sk9ILURDQTBETVVkLUFYN2xyTVh3N2loV01xeDItLUU5NG43RGJB?oc=5": "2026-10-27",
   "https://www.youtube.com/shorts/BkhDcWMYAc0": "2026-10-02",
-  "https://www.youtube.com/shorts/OeibGeDIItE": "2026-08-14",
   "https://www.youtube.com/shorts/ZDbTr7ZOXcM": "2026-09-13",
   "https://www.youtube.com/shorts/_HFe9SwBdAI": "2026-09-07",
   "https://www.youtube.com/shorts/oBdzG0yDRF4": "2026-08-31",
@@ -9790,7 +9789,7 @@
   },
   "ga.erl.mineraloccurrenceview.337471": {
    "first_seen": "2026-08-05",
-   "hash": "8d7eb4237b62f6bd",
+   "hash": "293547eeb1b78d3c",
    "seeded": true
   },
   "ga.erl.mineraloccurrenceview.337472": {
@@ -173025,7 +173024,7 @@
   },
   "gswa.S0223351": {
    "first_seen": "2026-11-11",
-   "hash": "1e4b2aa09185f6a6",
+   "hash": "e85f6f9d89363f35",
    "seeded": true
   },
   "gswa.S0223357": {
@@ -183105,12 +183104,12 @@
   },
   "gswa.S0243762": {
    "first_seen": "2026-11-11",
-   "hash": "16a1328868889a6e",
+   "hash": "db388ec21190fb49",
    "seeded": true
   },
   "gswa.S0243765": {
    "first_seen": "2026-11-11",
-   "hash": "8800e11f49fd19af",
+   "hash": "d2a5ecc10ad4572f",
    "seeded": true
   },
   "gswa.S0243770": {
@@ -184997,6 +184996,11 @@
    "first_seen": "2026-11-11",
    "hash": "41dbdfd26aa7fdc9",
    "seeded": true
+  },
+  "gswa.S0247441": {
+   "first_seen": "2026-11-12",
+   "hash": "ce31a3df8138ddb4",
+   "seeded": false
   }
  },
  "seeded_sources": [
