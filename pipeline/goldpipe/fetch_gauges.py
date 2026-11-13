@@ -19,6 +19,7 @@ ship no gauges and the app says so.
 import csv
 import io
 import json
+import math
 import urllib.parse
 from datetime import datetime, timezone
 
@@ -115,6 +116,18 @@ def _feature(state, sid, name, lon, lat, cumecs, obs_time,
 
 
 STALE_DAYS = 10
+
+
+def _number(raw) -> float | None:
+    """A reading as a float, or None when it's missing or not a real number.
+    State services write "NaN" for gaps; Python reads that as float nan,
+    which then reaches the JSON as NaN — invalid JSON that made the phone's
+    map engine reject the whole gauge file."""
+    try:
+        v = float(raw)
+    except (TypeError, ValueError):
+        return None
+    return v if math.isfinite(v) else None
 
 
 def _fresh(iso: str, now: datetime | None = None) -> bool:
@@ -237,9 +250,8 @@ def _hydstra_latest(base: str, datasource: str, sites: list[str],
                 if not vals:
                     continue
                 last = vals[-1]
-                try:
-                    v = float(last.get("v"))
-                except (TypeError, ValueError):
+                v = _number(last.get("v"))
+                if v is None:
                     continue
                 t = str(last.get("time") or "")
                 iso = ""
@@ -343,17 +355,15 @@ def _aquarius_latest_batch(cfg: dict, datasets: list[str]) -> dict[str, tuple[fl
         first = None
         last = None
         for row in rows:
-            if len(row) > col and row[col].strip():
-                if first is None:
-                    first = row[col]
-                last = (row[col], row[0])
+            v = _number(row[col]) if len(row) > col else None
+            if v is None:
+                continue
+            if first is None:
+                first = v
+            last = (v, row[0])
         if last:
-            try:
-                v = float(last[0])
-                out[ds] = (v, last[1][:16].replace(" ", "T"),
-                           _trend_from_change(float(first), v))
-            except ValueError:
-                pass
+            out[ds] = (last[0], last[1][:16].replace(" ", "T"),
+                       _trend_from_change(first, last[0]))
     return out
 
 

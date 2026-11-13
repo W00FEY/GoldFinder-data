@@ -4,6 +4,7 @@ Fail-soft: each section writer is handed the result (or None on failure) and
 falls back to the previous run's file with status="stale".
 """
 import json
+import math
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -29,9 +30,23 @@ def geojson(features: list[dict]) -> dict:
     }
 
 
+def _finite(obj):
+    """Copy of obj with every NaN/Infinity replaced by null. Python writes
+    those as bare NaN, which is not JSON: the phone's map engine then rejects
+    the whole file (this silently hid every river gauge in 2026-11)."""
+    if isinstance(obj, float):
+        return obj if math.isfinite(obj) else None
+    if isinstance(obj, dict):
+        return {k: _finite(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_finite(v) for v in obj]
+    return obj
+
+
 def write_json(path: Path, obj: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, separators=(",", ":"), ensure_ascii=False))
+    path.write_text(json.dumps(_finite(obj), separators=(",", ":"),
+                               ensure_ascii=False, allow_nan=False))
 
 
 class Publisher:

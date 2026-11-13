@@ -79,3 +79,37 @@ def test_gauge_feature_carries_level_and_trend():
     assert _trend_from_change(1.0, 0.8) == "falling"
     assert _trend_from_change(1.0, 1.01) == "steady"
     assert _trend_from_change(0.0, 0.0) == "steady"
+
+
+def test_gauge_gaps_never_become_nan(tmp_path):
+    import json
+    from goldpipe.fetch_gauges import _number
+    from goldpipe.publish import write_json
+    assert _number("NaN") is None and _number("inf") is None and _number("") is None
+    assert _number("1.25") == 1.25 and _number(0) == 0.0
+    out = tmp_path / "x.json"
+    write_json(out, {"a": float("nan"), "b": [1.0, float("inf")], "c": {"d": 2.5}})
+    text = out.read_text()
+    assert "NaN" not in text and "Infinity" not in text
+    # Strict parse, as the phone's map engine does.
+    def refuse(c):
+        raise ValueError(c)
+    assert json.loads(text, parse_constant=refuse) == {"a": None, "b": [1.0, None], "c": {"d": 2.5}}
+
+
+def test_aquarius_gaps_are_skipped_not_published():
+    from goldpipe import fetch_gauges as g
+    csv = ("junk\nTimestamp (UTC+09:30),A,B\n"
+           "2026-11-11 08:00:00,0.5,NaN\n2026-11-11 09:00:00,0.7,NaN\n"
+           "2026-11-11 10:00:00,NaN,NaN\n")
+    class R:
+        text = csv
+        def raise_for_status(self): pass
+    orig = g.SESSION.get
+    g.SESSION.get = lambda *a, **k: R()
+    try:
+        got = g._aquarius_latest_batch(g.AQUARIUS_STATES["SA"], ["A", "B"])
+    finally:
+        g.SESSION.get = orig
+    # A: last real value 0.7 (the trailing NaN is ignored), rising. B: all gaps -> absent.
+    assert got == {"A": (0.7, "2026-11-11T09:00", "rising")}

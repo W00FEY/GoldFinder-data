@@ -25,7 +25,7 @@ WATER_REGISTRY: dict[str, dict] = {
             "?where=1%3D1&geometry={bbox}&geometryType=esriGeometryEnvelope&inSR=4326"
             "&spatialRel=esriSpatialRelIntersects"
             "&outFields=name,hierarchy,perenniality,featuretype&outSR=4326"
-            "&resultRecordCount=1000&maxAllowableOffset=0.0002&geometryPrecision=5"
+            "&resultRecordCount=2000&maxAllowableOffset=0.0002&geometryPrecision=5"
             "&f=geojson"
         ],
         "field_map": {
