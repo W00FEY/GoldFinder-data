@@ -4,11 +4,16 @@ Published as vic_geology_sources.json (hot-fixable, like the other
 registries). All endpoints verified live 2026-11 on Victoria's open data
 GeoServer:
 
-- GEOLOGY: 1:50k seamless geology (~49k units). Far too heavy as vector
-  data, so the app shows the server's own map tiles (GSV's official
-  colours) and asks the server what rock is under a tap.
-- FAULTS: mapped faults from the 1:100k line layer (~222k lines incl.
-  contacts); a CQL filter draws faults only. Tiles + tap lookup as above.
+- GEOLOGY: 1:50k geology (~49k units) drawn over the statewide 1:250k
+  geology. The 1:50k mapping only covers some map sheets (none around
+  Strath Creek or south of Bright, for example), which left blank
+  rectangles; the 1:250k layer fills them. Far too heavy as vector data,
+  so the app shows the server's own map tiles (GSV's official colours) and
+  asks the server what rock is under a tap (detailed layer first).
+- FAULTS: faults from the 1:100k line layer (~222k lines incl. contacts;
+  a CQL filter keeps faults only), over the statewide 1:250k faults, which
+  have the same sheet gaps filled. The 1:250k ones draw black, the 1:100k
+  ones dark red. Tiles + tap lookup as above.
 - SHAFTS: ~29k recorded historic mine shafts. Live viewport points.
 - GOLDFIELDS: named goldfield outlines. Only Bendigo and the Mt William
   fields near Ararat are published — not statewide.
@@ -23,7 +28,17 @@ from .http import SESSION
 from .tenements import fill_bbox
 
 _OPEN = "https://opendata.maps.vic.gov.au/geoserver"
-_FAULT_FILTER = "&CQL_FILTER=feature%3D%27FAULT%27"
+# Statewide coarse layers drawn under the detailed ones (WMS draws the
+# first-named layer at the bottom; GetFeatureInfo answers in the order of
+# query_layers, so lookups name the detailed layer first).
+_GEOL_TILES = "sg_geological_unit_250k,open-data-platform:sg_geological_unit_50k"
+_GEOL_LOOKUP = "sg_geological_unit_50k,open-data-platform:sg_geological_unit_250k"
+_FAULT_TILES = "sg_shear_displace_struc_250k,open-data-platform:geol100_arc"
+_FAULT_LOOKUP = "geol100_arc,open-data-platform:sg_shear_displace_struc_250k"
+# One CQL filter per layer, in layer order (";"): faults only from the
+# 1:100k line layer, everything from the fault-only 1:250k one.
+_FAULT_TILES_FILTER = "&CQL_FILTER=INCLUDE%3Bfeature%3D%27FAULT%27"
+_FAULT_LOOKUP_FILTER = "&CQL_FILTER=feature%3D%27FAULT%27%3BINCLUDE"
 
 
 def _tiles(layer: str, extra: str = "") -> str:
@@ -57,12 +72,12 @@ _ATTRIB = "© State of Victoria (Geological Survey of Victoria), CC BY 4.0"
 
 REGISTRY: dict[str, dict] = {
     "VIC_GEOLOGY": {
-        "name": "Victorian geology 1:50k (GSV)",
+        "name": "Victorian geology 1:50k over statewide 1:250k (GSV)",
         "kind": "raster",
         "states": ["VIC"],
         "query_templates": [
-            _tiles("sg_geological_unit_50k"),
-            _lookup("sg_geological_unit_50k", buffer=1),
+            _tiles(_GEOL_TILES),
+            _lookup(_GEOL_LOOKUP, buffer=1),
         ],
         "field_map": {
             "name": ["name"],
@@ -73,17 +88,17 @@ REGISTRY: dict[str, dict] = {
         "attribution": _ATTRIB,
     },
     "VIC_FAULTS": {
-        "name": "Victorian faults 1:100k (GSV)",
+        "name": "Victorian faults 1:100k over statewide 1:250k (GSV)",
         "kind": "raster",
         "states": ["VIC"],
         "query_templates": [
-            _tiles("geol100_arc", _FAULT_FILTER),
-            _lookup("geol100_arc", buffer=12, extra=_FAULT_FILTER),
+            _tiles(_FAULT_TILES, _FAULT_TILES_FILTER),
+            _lookup(_FAULT_LOOKUP, buffer=12, extra=_FAULT_LOOKUP_FILTER),
         ],
         "field_map": {
             "name": ["name", "flt_system"],
             "desc": ["desc_sde"],
-            "accuracy": ["accuracy"],
+            "accuracy": ["accuracy", "positionalaccuracy"],
         },
         "attribution": _ATTRIB,
     },

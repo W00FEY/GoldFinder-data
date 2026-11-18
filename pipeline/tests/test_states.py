@@ -113,3 +113,17 @@ def test_aquarius_gaps_are_skipped_not_published():
         g.SESSION.get = orig
     # A: last real value 0.7 (the trailing NaN is ignored), rising. B: all gaps -> absent.
     assert got == {"A": (0.7, "2026-11-11T09:00", "rising")}
+
+
+def test_vic_geology_fills_sheet_gaps_with_statewide_layers():
+    from goldpipe.vic_geology import REGISTRY
+    geo = REGISTRY["VIC_GEOLOGY"]["query_templates"]
+    # Tiles: coarse statewide layer first (drawn underneath), detail on top.
+    assert "layers=open-data-platform:sg_geological_unit_250k,open-data-platform:sg_geological_unit_50k" in geo[0]
+    # Lookups: detailed answer first where it exists.
+    assert "query_layers=open-data-platform:sg_geological_unit_50k,open-data-platform:sg_geological_unit_250k" in geo[1]
+    flt = REGISTRY["VIC_FAULTS"]["query_templates"]
+    assert "sg_shear_displace_struc_250k,open-data-platform:geol100_arc" in flt[0]
+    assert flt[0].endswith("CQL_FILTER=INCLUDE%3Bfeature%3D%27FAULT%27")
+    assert flt[1].endswith("CQL_FILTER=feature%3D%27FAULT%27%3BINCLUDE")
+    assert "positionalaccuracy" in REGISTRY["VIC_FAULTS"]["field_map"]["accuracy"]
