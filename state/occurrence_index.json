@@ -185377,6 +185377,31 @@
    "first_seen": "2026-11-17",
    "hash": "e23b189e38d2b90a",
    "seeded": false
+  },
+  "gswa.S0247460": {
+   "first_seen": "2026-11-18",
+   "hash": "7a85ce4f44cbae92",
+   "seeded": false
+  },
+  "gswa.S0247462": {
+   "first_seen": "2026-11-18",
+   "hash": "fdae6e9fd1db69d4",
+   "seeded": false
+  },
+  "gswa.S0247463": {
+   "first_seen": "2026-11-18",
+   "hash": "84dfc51b3109396e",
+   "seeded": false
+  },
+  "gswa.S0247464": {
+   "first_seen": "2026-11-18",
+   "hash": "7fe4325c099f95c2",
+   "seeded": false
+  },
+  "gswa.S0247465": {
+   "first_seen": "2026-11-18",
+   "hash": "46b141125becb599",
+   "seeded": false
   }
  },
  "seeded_sources": [
